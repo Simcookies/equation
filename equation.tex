@@ -1,0 +1,120 @@
+\documentclass[12pt, fleqn]{jsarticle}
+%% 高度な数式を使うため
+\usepackage{mathtools, amssymb}
+%% 数式用のフォント
+\usepackage{newtxtext}
+\begin{document}
+\section{マイクロストリップ結合線路を用いたLPF}
+Zパラメータ：
+\begin{equation}
+  \begin{split}
+  [Z] = \begin{bmatrix}
+    Z_{11} & Z_{12} \\
+    Z_{21} & Z_{22}
+  \end{bmatrix}
+  &= j\dfrac{ \begin{bmatrix}
+      Z_a^2 \sin^2\theta - 2 Z_{0e}Z_s \cos^2\theta &
+      Z_b^2 \sin^2\theta - 2Z_{0e}Z_s \cos^2 \theta \\
+      Z_b^2 \sin^2\theta - 2Z_{0e}Z_s \cos^2 \theta &
+      Z_a^2 \sin^2\theta - 2 Z_{0e}Z_s \cos^2\theta
+    \end{bmatrix}
+  }{2(Z_{0e} + 2Z_s)\cos\theta\sin\theta} \\
+  &= j\dfrac{\begin{bmatrix}
+      Z_a^2\tan^2\theta - 2Z_{0e}Z_s &
+      Z_b^2\tan^2\theta - 2Z_{0e}Z_s \\
+      Z_b^2\tan^2\theta - 2Z_{0e}Z_s &
+      Z_a^2\tan^2\theta - 2Z_{0e}Z_s
+    \end{bmatrix}
+  }{2(Z_{0e}+2Z_s\tan\theta)}
+  \end{split}
+\end{equation}
+ここで
+\begin{gather}
+  Z^2_a = Z^2_{0e} + Z_{0e}Z_{0o} + 2Z_{0o}Z_s \\
+  Z^2_b = Z^2_{0e} - Z_{0e}Z_{0o} + 2Z_{0o}Z_s
+\end{gather}
+ZパラメータからABCDパラメータに変更すると、次の式を示せる。
+\begin{equation}
+  \begin{bmatrix}
+    A & B \\ C & D
+  \end{bmatrix}
+  = \dfrac{ \begin{bmatrix}
+      Z_{11} & Z_{11}Z_{22} - Z_{12}Z_{21} \\ 1 & Z_{22}
+    \end{bmatrix} }{Z_{21}}
+  = \dfrac{ \begin{bmatrix}
+    A' & B' \\ C' & D'      
+    \end{bmatrix}}{E}
+\end{equation}
+ここで
+\begin{align*}
+  A' &= Z^2_a\tan^2\theta - 2Z_{0e}Z_s \\
+  B' &= j(Z^2_a\tan^2\theta + Z^2_b\tan^2\theta-4Z_{0e}Z_s)(Z^2_a-Z^2_b)\tan\theta/\{2(Z_{0e} + 2Z_s)\} \\
+  C' &= -j2(Z_{0e}+2Z_s)\tan\theta \\
+  D' &= Z^2_a\tan^2\theta - 2Z_{0e}Z_s \\
+  E &= Z_b^2\tan^2\theta-2Z_{0e}Z_s
+\end{align*}
+マクロストリップLPFのSパラメータ$|S_{21}|^2$は下の式となる。
+\begin{equation}
+  \begin{aligned}
+    |S_{21}|^2 &= \dfrac{1}{1+\left|\dfrac{B-CZ^2_0}{2Z_0}\right|^2} \\
+    &= \dfrac{1}{1+\left|{j\tan\theta
+          \dfrac{(Z^2_{0e}\tan^2\theta-2Z_{0e}Z_s)Z_{0o}+(Z_{0e}+2Z_s)Z^2_0}
+          {\{(Z^2_{0e}-Z_{0e}Z_{0o}-2Z_{0o}Z_s)\tan^2\theta-2Z_{0e}Z_s\}Z_0}}\right|^2}
+  \end{aligned}
+\end{equation}
+・減衰極$|S_{21}|^2 = 0 \Rightarrow \left|\dfrac{B-CZ_0^2}{2Z_0}\right| = \infty$
+\begin{equation*}
+  \theta_t = \frac{(2n+1)\pi}{2}(n=0,1,2,\dots)
+\end{equation*}
+　または
+\begin{equation*}
+  \theta_t = \tan^{-1}\sqrt{\dfrac{2Z_{0e}Z_s}{Z_{0e}^2-2Z_{0e}Z_{0o}-2Z_{0o}Z_s}}
+\end{equation*}
+・反射零点$|S_{21}|^2 = 1 \Rightarrow \left|\dfrac{B-CZ_0^2}{2Z_0}\right| = 0$
+\begin{equation}
+  \theta_r = n\pi(n=0,1,2,\dots)
+\end{equation}
+　または
+\begin{equation}
+  \theta_r = \tan^{-1}\sqrt{\dfrac{2Z_{0e}Z_{0o}Z_s-(Z_{0e}+2Z_s)Z_o^2}{Z_{0e}^2Z_{0o}}}
+\end{equation}
+・電力半値$|S_{21}|^2 = \frac{1}{2} \Rightarrow \left|\dfrac{B-CZ_0^2}{2Z_0}\right| = 1$
+\begin{equation}
+  A_3\tan^3\theta_h + A_2\tan^2\theta_h+A_1\tan\theta_h+A_0 = 0
+\end{equation}
+　ここで
+\begin{equation*}
+  \begin{split}
+    A_3 &= Z_{0e}^2Z_{0o} \\
+    A_2 &= -(Z_{0e}^2-Z_{0e}Z_{0o}-2Z_{0o}Z_s)Z_0 \\
+    A_1 &= (Z_{0e}+2Z_s)Z_{0}^2 \\
+    A_0 &= 2Z_{0e}Z_sZ_0
+  \end{split}
+\end{equation*}
+\newpage{}
+\section{1/4波長線路付き結合線路LPF}
+マイクロストリップ結合線路を用いた小型LPFと1/4波長線路単体の伝送線路等価回路のABCDマトリックスをそれぞれ式(\ref{lpf}),(\ref{trans})に示す。
+\begin{align}
+  \label{lpf}
+  &\begin{bmatrix}
+    A_{cl} & B_{cl} \\
+    C_{cl} & D_{cl}
+  \end{bmatrix} \notag \\
+  &\scalebox{0.75}{$
+  = \dfrac{
+    \begin{bmatrix}
+      Z^2_a\tan^2\theta - 2Z_{0e}Z_s &
+      j(Z^2_a\tan^2\theta + Z^2_b\tan^2\theta-4Z_{0e}Z_s)(Z^2_a-Z^2_b)\tan\theta/\{2(Z_{0e} + 2Z_s)\} \\
+      -j2(Z_{0e}+2Z_s)\tan\theta &
+      Z^2_a\tan^2\theta - 2Z_{0e}Z_s
+    \end{bmatrix}}
+  {Z_b^2\tan^2\theta-2Z_{0e}Z_s} $} \\
+  \label{trans}
+  &\begin{bmatrix}
+    A_l & B_l \\ C_l & D_l
+  \end{bmatrix} =
+  \begin{bmatrix}
+    \cos\theta & jZ_l\sin\theta \\ j\sin\theta/Z_l & \cos\theta
+  \end{bmatrix}
+\end{align}
+\end{document}
